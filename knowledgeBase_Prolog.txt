@@ -1,0 +1,25 @@
+% Facts
+parent(john, mary).    % John is Mary’s parent
+parent(john, mike).    % John is Mike’s parent
+parent(susan, mary).   % Susan is Mary’s parent
+parent(susan, mike).   % Susan is Mike’s parent
+parent(mike, alice).    % Mike is Alice’s parent
+parent(jane, alice).    % Jane is Alice’s parent
+
+male(john).            % John is male
+male(mike).            % Mike is male
+female(susan).         % Susan is female
+female(mary).          % Mary is female
+female(jane).          % Jane is female
+female(alice).         % Alice is female
+
+
+% Rules
+sibling(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.  % X and Y are siblings if they share a parent Z
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).    % X is a grandparent of Y if X is a parent of Z and Z is a parent of Y
+
+
+% Quering the knowledge
+?- sibling(mary, mike).      % Is Mary a sibling of Mike?
+?- grandparent(john, alice).  % Is John a grandparent of Alice?
+?- male(X).                   % Who is male?
