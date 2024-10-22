@@ -1,0 +1,25 @@
+% Unification of two terms
+unify(X, Y) :- 
+    X == Y.                      % Case 1: If they are identical
+unify(X, Y) :- 
+    var(X),                      % Case 2: If X is a variable
+    !,                            % Cut to prevent backtracking
+    X = Y.                       % Unify X with Y
+unify(X, Y) :- 
+    var(Y),                      % Case 3: If Y is a variable
+    !,                            % Cut to prevent backtracking
+    Y = X.                       % Unify Y with X
+unify(X, Y) :- 
+    atom(X),                     % Case 4: If X is an atom
+    atom(Y),                     % Case 4: If Y is an atom
+    X \= Y,                      % Ensure they are not identical
+    fail.                        % Fail if they are different
+
+
+
+% testing the Unification
+?- unify(a, a).              % Should succeed (true)
+?- unify(X, a).              % Should succeed (X is unified with a)
+?- unify(a, X).              % Should succeed (a is unified with X)
+?- unify(X, Y).              % Should succeed (X and Y can be any term)
+?- unify(a, b).              % Should fail (different atoms)
